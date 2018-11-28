@@ -18,6 +18,12 @@
         </activity>
 
         <activity android:name=".SplashActivity" />
+        <activity android:name=".Ord_Cam" />
+
+        <activity android:name="ty.corp.ord.ordunitmix.mix.Mix" />
+        <activity android:name="ty.corp.ord.ordunitmix.magic.Magic" />
+        <activity android:name="ty.corp.ord.ordunitmix.natural.Natural" />
+        <activity android:name="ty.corp.ord.ordunitmix.stsl.St_Sl" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
