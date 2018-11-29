@@ -21,6 +21,11 @@
         <activity android:name=".Ord_Cam" />
 
         <activity android:name="ty.corp.ord.ordunitmix.mix.Mix" />
+        <activity android:name="ty.corp.ord.ordunitmix.mix.Hidden" />
+        <activity android:name="ty.corp.ord.ordunitmix.mix.Transcendence" />
+        <activity android:name="ty.corp.ord.ordunitmix.mix.Immortal" />
+        <activity android:name="ty.corp.ord.ordunitmix.mix.Limit" />
+        <activity android:name="ty.corp.ord.ordunitmix.mix.Eternity" />
         <activity android:name="ty.corp.ord.ordunitmix.magic.Magic" />
         <activity android:name="ty.corp.ord.ordunitmix.natural.Natural" />
         <activity android:name="ty.corp.ord.ordunitmix.stsl.St_Sl" />
