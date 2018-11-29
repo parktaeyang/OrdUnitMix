@@ -9,7 +9,7 @@ public class SplashActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.splash);
+		//setContentView(R.layout.splash);
 		
 		Handler hd = new Handler();
 		hd.postDelayed(new Runnable() {

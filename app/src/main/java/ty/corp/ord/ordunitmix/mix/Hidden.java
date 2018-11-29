@@ -2,24 +2,17 @@ package ty.corp.ord.ordunitmix.mix;
  
 import ty.corp.ord.ordunitmix.R;
 import ty.corp.ord.ordunitmix.UnitVO;
-import ty.corp.ord.ordunitmix.databinding.FargMixBinding;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.content.Intent;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.databinding.DataBindingUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,40 +23,39 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
- 
-public class Hidden extends Fragment {
+public class Hidden extends AppCompatActivity {
 
 	UnitVO[] unit_obj;
 	String[] unit_list;
 
 	phpDown task;
-	FargMixBinding mixLayout;
+	Context context;
+    ListView listview;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		mixLayout = DataBindingUtil.inflate(inflater, R.layout.farg_mix, container, false);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.mix_list);
+		context = this.getApplicationContext();
+        listview = (ListView) findViewById(R.id.mix_list);
+
 		task = new phpDown();
 		task.execute("http://pty1026.cafe24.com/booking/selectBookingList.php","00");
 
-		mixLayout.mixList.setClickable(true);
-		mixLayout.mixList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
+		listview.setClickable(true);
+		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Object booking_list_obj = mixLayout.mixList.getItemAtPosition(position);
 
-				Builder builder = new Builder(getContext());
+				Builder builder = new Builder(Hidden.this);
 				builder.setTitle(unit_obj[position].getUnit_no()
-						+ "\n\n"+unit_obj[position].getMain_unit()).setPositiveButton("Check", null).show();
+						+ "\n\n" + unit_obj[position].getMain_unit()).setPositiveButton("Check", null).show();
+
 			}
 		});
-
-		return mixLayout.getRoot();
 	}
 
 	private class phpDown extends AsyncTask<String, Integer, String> {
 
 		public phpDown(){
-			Log.d("phpDown","생성자");
 		}
 		@Override
 		protected void onPreExecute() {
@@ -72,7 +64,6 @@ public class Hidden extends Fragment {
 
 		@Override
 		protected String doInBackground(String... urls) {
-			Log.d("phpDown","doInBackground");
 			StringBuilder jsonHtml = new StringBuilder();
 			try{
 				URL url = new URL(urls[0]);
@@ -98,9 +89,8 @@ public class Hidden extends Fragment {
 
 		}
 
-
+        @Override
 		protected void onPostExecute(String str){
-			Log.d("phpDown","onPostExecute");
 			String id;
 			try{
 				JSONObject root = new JSONObject(str);
@@ -118,8 +108,9 @@ public class Hidden extends Fragment {
 			}catch (JSONException e){
 				e.printStackTrace();
 			}
-			ArrayAdapter<String> mix_list_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, unit_list);
-			mixLayout.mixList.setAdapter(mix_list_adapter);
+
+			ArrayAdapter<String> mix_list_adapter = new ArrayAdapter<String>(context, R.layout.list_custom_text, unit_list);
+			listview.setAdapter(mix_list_adapter);
 		}
 
 	}
