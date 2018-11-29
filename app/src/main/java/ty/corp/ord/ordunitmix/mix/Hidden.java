@@ -46,8 +46,9 @@ public class Hidden extends AppCompatActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 				Builder builder = new Builder(Hidden.this);
-				builder.setTitle(unit_obj[position].getUnit_no()
-						+ "\n\n" + unit_obj[position].getMain_unit()).setPositiveButton("Check", null).show();
+				builder.setTitle(unit_obj[position].getUnit_no())
+						.setMessage(unit_obj[position].getMain_unit())
+						.setPositiveButton("Check", null).show();
 
 			}
 		});
